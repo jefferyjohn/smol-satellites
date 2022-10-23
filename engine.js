@@ -13,9 +13,9 @@ const ixpdotp = MinutesPerDay / (2.0 * 3.141592654) ;
 let TargetDate = new Date();
 
 const defaultOptions = {
-    backgroundColor: 0x041119,
-    defaultSatelliteColor: 0xff0000,
-    onStationClicked: null
+    backgroundColor: 0x000000,
+    defaultSatelliteColor: 0xffffff,
+    onStationClicked: 0xcc002b,
 }
 
 const defaultStationOptions = {

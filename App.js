@@ -4,7 +4,6 @@ import { Engine } from './engine';
 import Info from './Info';
 import Search from './Search/Search';
 import SelectedStations from './Selection/SelectedStations';
-import Fork from './fork';
 import * as qs from 'query-string';
 import Highlights from './highlights';
 import DateSlider from './Options/DateSlider';
@@ -120,7 +119,7 @@ class App extends Component {
     addCelestrakSets = () => {
         //this.engine.loadLteFileStations(getCorsFreeUrl('http://www.celestrak.org/NORAD/elements/weather.txt'), 0x00ffff)
         //this.engine.loadLteFileStations(getCorsFreeUrl('http://www.celestrak.org/NORAD/elements/cosmos-2251-debris.txt'), 0xff0090)
-        this.engine.loadLteFileStations(getCorsFreeUrl('http://www.celestrak.org/NORAD/elements/active.txt'), 0xffffff)
+        this.engine.loadLteFileStations(getCorsFreeUrl('https://celestrak.org/NORAD/elements/gp.php?GROUP=cubesat&FORMAT=tle'), 0xffffff)
         //this.engine.loadLteFileStations(getCorsFreeUrl('http://www.celestrak.org/NORAD/elements/science.txt'), 0xffff00)
         //this.engine.loadLteFileStations(getCorsFreeUrl('http://www.celestrak.org/NORAD/elements/stations.txt'), 0xffff00)
         //this.engine.loadLteFileStations(getCorsFreeUrl('http://www.celestrak.org/NORAD/elements/iridium-NEXT.txt'), 0x00ff00)
@@ -194,12 +193,14 @@ class App extends Component {
 
         return (
             <div>
-                <Fork />
                 <Highlights query={this.state.query} total={this.state.queryObjectCount} />
                 <Info stations={stations} refMode={this.state.referenceFrame} />
+                {/* import a clickable groundstation logo to open new page */}
                 <Search stations={this.state.stations} onResultClick={this.handleSearchResultClick} />
                 <SelectedStations selected={selected} onRemoveStation={this.handleRemoveSelected} onRemoveAll={this.handleRemoveAllSelected} />
                 {UseDateSlider && <DateSlider min={initialDate} max={maxMs} value={currentDate} onChange={this.handleDateChange} onRender={this.renderDate} />}
+                <img src="https://d1.awsstatic.com/AWS%20Ground%20Station/Logo%20Images/Page-Illo_Groundstation_Use-Case-1.3320302d713a402a43db952136c9ff19e7222a04.png" className="aws-logo" alt="aws-logo" onClick={() => window.open('https://aws.amazon.com/ground-station/')} />
+
                 <div ref={c => this.el = c} style={{ width: '99%', height: '99%' }} />
             </div>
         )
